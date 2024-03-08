@@ -1,0 +1,98 @@
+
+const int ledPin[] = {2, 3, 4, 5, 6, 7}; // Pins connected to LEDs
+const int numLeds = 6; // Number of LEDs
+const int dataLength = 268; // Length of data array
+
+float data[dataLength] = {22.0, 42.0, 18.0, 15.0, 30.0, 14.0, 30.0, 26.0, 31.0, 25.0, 36.0, 33.5, 27.8, 43.4, 25.8, 37.0, 31.0, 39.0, 23.0, 20.0,
+    20.0, 18.0, 34.0, 24.0, 32.0, 35.0, 32.5, 27.0, 28.0, 42.0, 25.0, 22.0, 36.5, 28.0, 25.0, 33.0, 38.0, 29.0, 27.0, 26.0,
+    21.0, 27.0, 19.0, 20.0, 15.0, 22.0, 34.0, 11.5, 37.0, 23.0, 26.0, 28.0, 26.3, 31.3, 29.8, 26.8, 27.8, 23.8, 14.3, 22.0,
+    25.2, 14.2, 22.2, 20.2, 11.3, 13.0, 28.7, 19.3, 13.2, 21.3, 34.2, 29.2, 25.2, 57.2, 33.2, 16.2, 21.2, 27.2, 33.2, -5.8,
+    36.6, 33.6, 9.7, 18.5, 18.5, 15.3, 25.3, 15.6, 13.4, 20.5, 20.7, 9.0, 24.0, 23.8, 25.8, 29.3, 26.3, 18.6, 19.3, 21.8, 36.3,
+    14.8, 38.1, 14.3, 25.3, 19.8, 21.0, 29.2, 26.9, 24.3, 39.2, 35.0, 36.8, 29.9, 19.0, 20.0, 22.0, 28.0, 21.8, 19.0, 23.1, 17.2,
+    6.2, 20.8, 18.3, 6.4, 14.9, 10.2, 22.2, 25.8, 22.8, 15.0, 23.2, 29.0, 26.0, 24.0, 44.2, 22.6, 21.1, 25.1, 29.6, 25.1, 26.1,
+    24.6, 24.6, 32.1, 35.6, 31.1, 34.6, 17.6, -12.4, 28.1, 21.1, 16.1, 15.6, 20.1, 21.1, 18.1, 10.6, 20.6, 22.1, 15.1, 13.6, 11.6,
+    22.1, 14.1, 22.1, 36.4, 14.4, 19.4, 22.9, 19.1, 19.1, 24.1, 16.1, 22.1, 19.1, 18.9, 13.1, 10.9, 26.1, 15.9, 28.9, 23.4, 19.4,
+    17.4, 22.1, 26.4, 20.1, 39.9, 20.1, 16.1, 24.1, 31.1, 19.1, 24.7, 26.2, 24.4, 24.9, 21.1, 14.7, 20.9, 8.9, 29.8, 13.1, 20.8,
+    26.1, 17.1, 34.1, 16.1, 28.8, 35.4, 25.1, 39.2, 29.1, 35.4, 20.6, 13.4, 14.6, 30.7, 33.1, 25.1, 30.6, 22.5, 22.2, 24.3, 23.5,
+    26.5, 26.6, 36.1, 24.9, 26.6, 24.1, 11.7, 34.4, 35.2, 29.7, 34.7, 24.2, 14.7, 27.2, 27.2, 23.7, 27.7, 28.7, 27.2, 1.2, 9.2,
+    25.7, 19.7, 17.2, 13.2, 13.2, 17.7, 12.7, 15.7, 4.2, 15.7, 18.7, 26.7, -4.3, 11.1, -4.9, 16.1
+};
+
+void setup() {
+  for (int i = 0; i < numLeds; i++) {
+    pinMode(ledPin[i], OUTPUT);
+  }
+}
+
+void loop() {
+  for (int i = 0; i < dataLength; i++) {
+    float val = data[i];
+
+    // Determine which LEDs to turn on based on the value
+    if (val >= -12.4 && val < 4.3) {
+      // Turn on all LEDs and blink
+      for (int j = 0; j < numLeds; j++) {
+        digitalWrite(ledPin[j], HIGH);
+      }
+      delay(500);
+      for (int j = 0; j < numLeds; j++) {
+        digitalWrite(ledPin[j], LOW);
+      }
+      delay(500);
+    } else if (val >= -4.3 && val < -3.8) {
+      // Turn on first five LEDs and blink the sixth LED
+      for (int j = 0; j < numLeds - 1; j++) {
+        digitalWrite(ledPin[j], HIGH);
+      }
+      delay(500);
+      digitalWrite(ledPin[numLeds - 1], HIGH);
+      delay(500);
+      digitalWrite(ledPin[numLeds - 1], LOW); // Turn off the blinking LED
+      delay(500);
+    } else if (val >= -3.8 && val < 11.9) {
+      // Turn on first four LEDs and blink the fifth LED
+      for (int j = 0; j < numLeds - 2; j++) {
+        digitalWrite(ledPin[j], HIGH);
+      }
+      delay(500);
+      digitalWrite(ledPin[numLeds - 2], HIGH);
+      delay(500);
+      digitalWrite(ledPin[numLeds - 2], LOW); // Turn off the blinking LED
+      delay(500);
+    } else if (val >= 11.9 && val < 20) {
+      // Turn on first three LEDs and blink the fourth LED
+      for (int j = 0; j < numLeds - 3; j++) {
+        digitalWrite(ledPin[j], HIGH);
+      }
+      delay(500);
+      digitalWrite(ledPin[numLeds - 3], HIGH);
+      delay(500);
+      digitalWrite(ledPin[numLeds - 3], LOW); // Turn off the blinking LED
+      delay(500);
+    } else if (val >= 20 && val < 28.1) {
+      // Turn on first two LEDs and blink the third LED
+      for (int j = 0; j < numLeds - 4; j++) {
+        digitalWrite(ledPin[j], HIGH);
+      }
+      delay(500);
+      digitalWrite(ledPin[numLeds - 4], HIGH);
+      delay(500);
+      digitalWrite(ledPin[numLeds - 4], LOW); // Turn off the blinking LED
+      delay(500);
+    } else if (val >= 28.1 && val < 36.2) {
+      // Turn on first LED and blink the second LED
+      digitalWrite(ledPin[0], HIGH);
+      delay(500);
+      digitalWrite(ledPin[1], HIGH);
+      delay(500);
+      digitalWrite(ledPin[1], LOW); // Turn off the blinking LED
+      delay(500);
+    } else if (val >= 32.6 && val <= 44.3) {
+      // Blink first LED slowly
+      digitalWrite(ledPin[0], HIGH);
+      delay(1000);
+      digitalWrite(ledPin[0], LOW);
+      delay(1000);
+    }
+  }
+}
